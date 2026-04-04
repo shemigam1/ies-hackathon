@@ -4,6 +4,7 @@ import ParticlesCanvas from './components/ParticlesCanvas'
 import Navbar from './components/Navbar'
 import HeroSection from './components/HeroSection'
 import AboutSection from './components/AboutSection'
+import ArduinoSection from './components/ArduinoSection'
 import ScheduleSection from './components/ScheduleSection'
 import EventsSection from './components/EventsSection'
 import RegisterSection from './components/RegisterSection'
@@ -74,6 +75,7 @@ export default function App() {
         <HeroSection />
 
         <AboutSection />
+        <ArduinoSection />
         <ScheduleSection />
         <EventsSection />
         <RegisterSection />

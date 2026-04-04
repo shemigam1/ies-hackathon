@@ -63,9 +63,9 @@ export default function CircuitBackground() {
         for (const j of node.connections) {
           const other = nodes[j]
           const gradient = ctx.createLinearGradient(node.x, node.y, other.x, other.y)
-          gradient.addColorStop(0, 'rgba(0, 98, 155, 0.12)')
-          gradient.addColorStop(0.5, 'rgba(0, 163, 224, 0.08)')
-          gradient.addColorStop(1, 'rgba(0, 98, 155, 0.12)')
+          gradient.addColorStop(0, 'rgba(0, 120, 50, 0.13)')
+          gradient.addColorStop(0.5, 'rgba(0, 255, 136, 0.07)')
+          gradient.addColorStop(1, 'rgba(0, 98, 155, 0.10)')
           ctx.beginPath()
           ctx.strokeStyle = gradient
           ctx.lineWidth = 0.5
@@ -89,7 +89,7 @@ export default function CircuitBackground() {
             toX: nodes[targetIdx].x, toY: nodes[targetIdx].y,
             progress: 0,
             speed: 0.008 + Math.random() * 0.012,
-            color: Math.random() > 0.5 ? '#E87722' : '#00A3E0',
+            color: Math.random() > 0.6 ? '#E87722' : Math.random() > 0.5 ? '#00FF88' : '#00A3E0',
           })
         }
       }
@@ -139,12 +139,12 @@ export default function CircuitBackground() {
         const alpha = 0.3 + 0.4 * pulse
 
         ctx.beginPath()
-        ctx.fillStyle = `rgba(0, 163, 224, ${alpha})`
+        ctx.fillStyle = `rgba(0, 255, 136, ${alpha * 0.7})`
         ctx.arc(node.x, node.y, node.size, 0, Math.PI * 2)
         ctx.fill()
 
         // Node cross marker
-        ctx.strokeStyle = `rgba(0, 163, 224, ${alpha * 0.6})`
+        ctx.strokeStyle = `rgba(0, 255, 136, ${alpha * 0.4})`
         ctx.lineWidth = 0.5
         ctx.beginPath()
         ctx.moveTo(node.x - 5, node.y)
