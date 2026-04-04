@@ -1,0 +1,111 @@
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --ies-orange: #E87722;
+  --ies-blue: #00629B;
+  --ies-dark-blue: #003865;
+  --ies-light-blue: #00A3E0;
+  --ies-white: #FFFFFF;
+  --ies-dark: #0A0E1A;
+  --ies-darker: #050810;
+  --ies-grid: #0d1425;
+  --ies-orange-glow: rgba(232, 119, 34, 0.4);
+  --ies-blue-glow: rgba(0, 98, 155, 0.4);
+  --ies-light-blue-glow: rgba(0, 163, 224, 0.3);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--ies-darker);
+  color: var(--ies-white);
+  font-family: 'Rajdhani', sans-serif;
+  overflow-x: hidden;
+  cursor: none;
+}
+
+/* Custom cursor */
+.cursor {
+  position: fixed;
+  width: 12px;
+  height: 12px;
+  background: var(--ies-orange);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 99999;
+  transform: translate(-50%, -50%);
+  transition: transform 0.1s ease, width 0.2s ease, height 0.2s ease, opacity 0.2s ease;
+  mix-blend-mode: screen;
+}
+
+.cursor-ring {
+  position: fixed;
+  width: 36px;
+  height: 36px;
+  border: 1.5px solid var(--ies-orange);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 99998;
+  transform: translate(-50%, -50%);
+  transition: transform 0.15s ease, width 0.3s ease, height 0.3s ease, opacity 0.2s ease;
+  opacity: 0.5;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--ies-darker);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--ies-orange);
+  border-radius: 3px;
+}
+
+/* Selection */
+::selection {
+  background: var(--ies-orange);
+  color: var(--ies-dark);
+}
+
+/* Utility */
+.font-mono {
+  font-family: 'Share Tech Mono', monospace;
+}
+.font-orbitron {
+  font-family: 'Orbitron', sans-serif;
+}
+.font-rajdhani {
+  font-family: 'Rajdhani', sans-serif;
+}
+
+/* Glow text effects */
+.glow-orange {
+  text-shadow: 0 0 10px var(--ies-orange-glow), 0 0 30px var(--ies-orange-glow);
+}
+.glow-blue {
+  text-shadow: 0 0 10px var(--ies-blue-glow), 0 0 30px var(--ies-blue-glow);
+}
+
+/* Scanline overlay */
+.scanlines::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    to bottom,
+    transparent 0px,
+    transparent 3px,
+    rgba(0, 0, 0, 0.03) 3px,
+    rgba(0, 0, 0, 0.03) 4px
+  );
+  pointer-events: none;
+  z-index: 1;
+}
