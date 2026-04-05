@@ -13,7 +13,8 @@ export default function ArduinoCircuit() {
     const pulses = []
 
     // Wire definitions: arrays of [x,y] waypoints
-    const WIRES = [
+    // Horizontal layout (Arduino left, breadboard right)
+    const WIRES_H = [
       // D13 -> LED anode
       { points: [[370, 178], [450, 178], [450, 310], [530, 310]], color: '#00FF88', addInterval: 90 },
       // GND -> LED cathode (via resistor)
@@ -25,6 +26,20 @@ export default function ArduinoCircuit() {
       // D3 -> component
       { points: [[370, 218], [480, 218], [480, 420], [680, 420]], color: '#FF8C00', addInterval: 200 },
     ]
+    // Portrait layout (Arduino top, breadboard bottom) — Arduino at (67,55), breadboard at (52,290)
+    const WIRES_V = [
+      // D13 -> LED anode on breadboard
+      { points: [[270, 115], [298, 115], [298, 360], [200, 360]], color: '#00FF88', addInterval: 90 },
+      // GND -> LED cathode
+      { points: [[270, 135], [308, 135], [308, 395], [170, 395]], color: '#FF4444', addInterval: 110 },
+      // 5V -> breadboard power rail
+      { points: [[270, 95], [285, 95], [285, 310], [220, 310]], color: '#FFD700', addInterval: 130 },
+      // A0 -> sensor
+      { points: [[270, 195], [318, 195], [318, 430], [140, 430]], color: '#00BFFF', addInterval: 150 },
+      // D3 -> component
+      { points: [[270, 155], [293, 155], [293, 380], [230, 380]], color: '#FF8C00', addInterval: 200 },
+    ]
+    let WIRES = WIRES_H
 
     WIRE_TIMERS = WIRES.map(() => 0)
 
@@ -556,17 +571,24 @@ export default function ArduinoCircuit() {
     }
 
     // Labels/annotations
-    function drawAnnotations(ax, ay, bx, by) {
+    function drawAnnotations(ax, ay, bx, by, portrait) {
       ctx.save()
       ctx.font = '11px Share Tech Mono, monospace'
 
       // Voltage labels
-      const annotations = [
-        { x: ax - 30, y: ay - 20, text: '5V', color: '#FFD700' },
-        { x: ax - 30, y: ay + 80, text: 'GND', color: '#FF4444' },
-        { x: bx + 90, y: by + 10, text: 'OUTPUT', color: '#00FF88' },
-        { x: bx + 85, y: by + 120, text: 'I²C/SPI', color: '#00BFFF' },
-      ]
+      const annotations = portrait
+        ? [
+            { x: ax - 28, y: ay + 20, text: '5V', color: '#FFD700' },
+            { x: ax - 32, y: ay + 110, text: 'GND', color: '#FF4444' },
+            { x: bx + 240, y: by + 20, text: 'OUT', color: '#00FF88' },
+            { x: bx - 40, y: by + 140, text: 'I²C', color: '#00BFFF' },
+          ]
+        : [
+            { x: ax - 30, y: ay - 20, text: '5V', color: '#FFD700' },
+            { x: ax - 30, y: ay + 80, text: 'GND', color: '#FF4444' },
+            { x: bx + 90, y: by + 10, text: 'OUTPUT', color: '#00FF88' },
+            { x: bx + 85, y: by + 120, text: 'I²C/SPI', color: '#00BFFF' },
+          ]
       for (const a of annotations) {
         ctx.fillStyle = a.color
         ctx.globalAlpha = 0.6
@@ -577,7 +599,11 @@ export default function ArduinoCircuit() {
       const vLabel = `D13: ${(3.3 * (0.5 + 0.5 * Math.sin(t * 0.08))).toFixed(1)}V`
       ctx.fillStyle = '#00FF88'
       ctx.globalAlpha = 0.7
-      ctx.fillText(vLabel, ax + 210, ay - 10)
+      if (portrait) {
+        ctx.fillText(vLabel, ax + 10, ay + 175)
+      } else {
+        ctx.fillText(vLabel, ax + 210, ay - 10)
+      }
 
       ctx.restore()
     }
@@ -586,6 +612,10 @@ export default function ArduinoCircuit() {
       const W = canvas.width, H = canvas.height
       ctx.clearRect(0, 0, W, H)
       t++
+
+      // Detect portrait orientation from the container shape
+      const portrait = canvas.offsetHeight > canvas.offsetWidth * 1.1
+      WIRES = portrait ? WIRES_V : WIRES_H
 
       // Dark PCB background panel
       const panelX = 20, panelY = 20, panelW = W - 40, panelH = H - 40
@@ -608,14 +638,16 @@ export default function ArduinoCircuit() {
       }
 
       // Position elements
-      const arduinoX = 55, arduinoY = 80
-      const bbX = 310, bbY = 65
+      const arduinoX = portrait ? 67 : 55
+      const arduinoY = portrait ? 55 : 80
+      const bbX = portrait ? 52 : 310
+      const bbY = portrait ? 290 : 65
 
       // Draw components
       drawConnectionWires()
       drawArduino(arduinoX, arduinoY)
       drawBreadboard(bbX, bbY)
-      drawAnnotations(arduinoX, arduinoY, bbX, bbY)
+      drawAnnotations(arduinoX, arduinoY, bbX, bbY, portrait)
       drawPulses()
 
       // Emit pulses on timers

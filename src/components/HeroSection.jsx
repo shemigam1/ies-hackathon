@@ -1,6 +1,36 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState, useMemo } from 'react'
 import CountdownTimer from './CountdownTimer'
 import OscilloscopeWave from './OscilloscopeWave'
+
+// Replicates ieee-website SplitLine — each char animates up from a clipped overflow
+function SplitLine({ text, color = '#ffffff', delay = 0 }) {
+  const chars = useMemo(() => Array.from(text), [text])
+  return (
+    <div style={{ overflow: 'hidden', lineHeight: 0.95 }}>
+      <div style={{ display: 'inline' }}>
+        {chars.map((char, i) => (
+          <span
+            key={i}
+            style={{
+              display: 'inline-block',
+              color,
+              animation: `splitCharIn 0.7s cubic-bezier(0.16,1,0.3,1) both`,
+              animationDelay: `${delay + i * 0.028}s`,
+            }}
+          >
+            {char === ' ' ? '\u00A0' : char}
+          </span>
+        ))}
+      </div>
+      <style>{`
+        @keyframes splitCharIn {
+          from { transform: translateY(110%); opacity: 0; }
+          to   { transform: translateY(0);    opacity: 1; }
+        }
+      `}</style>
+    </div>
+  )
+}
 
 function GlitchText({ text, style = {} }) {
   const [glitch, setGlitch] = useState(false)
@@ -146,33 +176,27 @@ export default function HeroSection() {
           </span>
         </div>
 
-        {/* Main headline */}
-        <div style={{ marginBottom: '8px' }}>
-          <h1 style={{
-            fontFamily: 'Orbitron, sans-serif',
-            fontSize: 'clamp(3.5rem, 12vw, 8rem)',
-            fontWeight: 900,
-            lineHeight: 0.95,
-            color: '#ffffff',
-            letterSpacing: '-0.02em',
-            textShadow: '0 0 60px rgba(232,119,34,0.2)',
-          }}>
-            <GlitchText text="BUILD" />
-          </h1>
-        </div>
-        <div style={{ marginBottom: '24px' }}>
-          <h1 style={{
-            fontFamily: 'Orbitron, sans-serif',
-            fontSize: 'clamp(3.5rem, 12vw, 8rem)',
-            fontWeight: 900,
-            lineHeight: 0.95,
-            color: '#E87722',
-            letterSpacing: '-0.02em',
-            textShadow: '0 0 40px rgba(232,119,34,0.5), 0 0 80px rgba(232,119,34,0.2)',
-          }}>
-            A-THON
-          </h1>
-        </div>
+        {/* Main headline — SplitLine char animation */}
+        <h1 style={{
+          fontFamily: 'Orbitron, sans-serif',
+          fontSize: 'clamp(3.5rem, 12vw, 8rem)',
+          fontWeight: 900,
+          letterSpacing: '-0.02em',
+          marginBottom: '8px',
+          textShadow: '0 0 60px rgba(232,119,34,0.2)',
+        }}>
+          <SplitLine text="BUILD" color="#ffffff" delay={0.1} />
+        </h1>
+        <h1 style={{
+          fontFamily: 'Orbitron, sans-serif',
+          fontSize: 'clamp(3.5rem, 12vw, 8rem)',
+          fontWeight: 900,
+          letterSpacing: '-0.02em',
+          marginBottom: '24px',
+          textShadow: '0 0 40px rgba(232,119,34,0.5), 0 0 80px rgba(232,119,34,0.2)',
+        }}>
+          <SplitLine text="A-THON" color="#E87722" delay={0.28} />
+        </h1>
 
         {/* Subtitle */}
         <p style={{

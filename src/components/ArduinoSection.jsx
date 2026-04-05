@@ -64,14 +64,14 @@ export default function ArduinoSection() {
         </div>
 
         {/* Main layout: circuit left, specs right */}
-        <div style={{
+        <div id="arduino-grid" style={{
           display: 'grid',
           gridTemplateColumns: 'minmax(0, 1.4fr) minmax(0, 1fr)',
           gap: '40px',
           alignItems: 'center',
         }}>
           {/* Circuit animation */}
-          <div style={{
+          <div id="arduino-circuit-box" style={{
             position: 'relative',
             background: 'rgba(5,14,8,0.7)',
             border: '1px solid rgba(0,255,136,0.15)',
@@ -223,10 +223,12 @@ void loop() {
         </div>
       </div>
 
-      {/* Responsive grid collapse */}
       <style>{`
         @media (max-width: 768px) {
           #arduino-grid { grid-template-columns: 1fr !important; }
+        }
+        @media (max-width: 640px) {
+          #arduino-circuit-box { height: 540px !important; }
         }
       `}</style>
     </section>

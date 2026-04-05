@@ -1,11 +1,14 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
+import LoadingScreen from './components/LoadingScreen'
 import CircuitBackground from './components/CircuitBackground'
 import ParticlesCanvas from './components/ParticlesCanvas'
 import Navbar from './components/Navbar'
 import HeroSection from './components/HeroSection'
 import AboutSection from './components/AboutSection'
+import MissionSection from './components/MissionSection'
 import ArduinoSection from './components/ArduinoSection'
-import ScheduleSection from './components/ScheduleSection'
+import ConferenceSection from './components/ConferenceSection'
+import GallerySection from './components/GallerySection'
 import EventsSection from './components/EventsSection'
 import RegisterSection from './components/RegisterSection'
 import Footer from './components/Footer'
@@ -54,7 +57,11 @@ function CustomCursor() {
 
 
 export default function App() {
+  const [loaded, setLoaded] = useState(false)
+
   return (
+    <>
+      {!loaded && <LoadingScreen onDone={() => setLoaded(true)} />}
     <div style={{
       minHeight: '100vh',
       background: 'linear-gradient(180deg, #050810 0%, #0A0E1A 40%, #050810 100%)',
@@ -75,13 +82,17 @@ export default function App() {
         <HeroSection />
 
         <AboutSection />
+        <MissionSection />
+        <ConferenceSection />
         <ArduinoSection />
-        <ScheduleSection />
+        <GallerySection />
         <EventsSection />
         <RegisterSection />
       </main>
 
       <Footer />
     </div>
+    </>
+
   )
 }

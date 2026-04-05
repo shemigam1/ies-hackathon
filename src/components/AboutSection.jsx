@@ -120,7 +120,7 @@ export default function AboutSection() {
           {/* Stats */}
           <div style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 160px), 1fr))',
             gap: '20px',
             marginBottom: '80px',
           }}>
@@ -165,7 +165,7 @@ export default function AboutSection() {
           {/* Features grid */}
           <div style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 240px), 1fr))',
             gap: '24px',
           }}>
             {features.map((f) => (

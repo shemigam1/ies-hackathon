@@ -80,25 +80,26 @@ export default function RegisterSection() {
           </p>
 
           {/* Info cards */}
-          <div style={{
-            display: 'flex',
-            gap: '20px',
-            justifyContent: 'center',
-            flexWrap: 'wrap',
-            marginBottom: '48px',
-          }}>
+          <style>{`
+            .reg-cards { display: flex; flex-wrap: wrap; gap: 20px; justify-content: center; margin-bottom: 48px; }
+            .reg-card { flex: 1 1 140px; max-width: 200px; }
+            @media (max-width: 480px) {
+              .reg-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+              .reg-card { max-width: none; }
+            }
+          `}</style>
+          <div className="reg-cards">
             {[
               { label: 'Date', value: 'April 13–14, 2026', icon: '📅' },
               { label: 'Time', value: '10:00 AM Kickoff', icon: '⏰' },
               { label: 'Venue', value: 'University of Lagos', icon: '📍' },
               { label: 'Entry', value: 'Free for Spectators', icon: '🎟️' },
             ].map(item => (
-              <div key={item.label} style={{
+              <div key={item.label} className="reg-card" style={{
                 background: 'rgba(0,98,155,0.08)',
                 border: '1px solid rgba(0,163,224,0.15)',
                 borderRadius: '8px',
                 padding: '16px 20px',
-                minWidth: '140px',
                 textAlign: 'center',
               }}>
                 <div style={{ fontSize: '1.3rem', marginBottom: '6px' }}>{item.icon}</div>
@@ -122,10 +123,12 @@ export default function RegisterSection() {
           </div>
 
           {/* CTA Button */}
+          <style>{`.reg-cta { display: inline-block; } @media (max-width: 480px) { .reg-cta { display: block !important; text-align: center; } }`}</style>
           <a
             href={REGISTER_URL}
             target="_blank"
             rel="noopener noreferrer"
+            className="reg-cta"
             style={{
               display: 'inline-block',
               fontFamily: 'Orbitron, sans-serif',

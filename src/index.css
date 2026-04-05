@@ -75,6 +75,20 @@ body {
   color: var(--ies-dark);
 }
 
+/* Hide custom cursor on touch/mobile */
+@media (hover: none) {
+  .cursor, .cursor-ring { display: none !important; }
+  body { cursor: auto; }
+}
+
+/* Global section padding reduction on mobile */
+@media (max-width: 640px) {
+  section {
+    padding-top: 64px !important;
+    padding-bottom: 64px !important;
+  }
+}
+
 /* Utility */
 .font-mono {
   font-family: 'Share Tech Mono', monospace;

@@ -20,7 +20,7 @@ function Digit({ value, label }) {
   return (
     <div style={{ textAlign: 'center', position: 'relative' }}>
       {/* Outer card */}
-      <div style={{
+      <div className="countdown-digit" style={{
         position: 'relative',
         background: 'linear-gradient(145deg, rgba(10,14,26,0.95) 0%, rgba(5,8,16,0.98) 100%)',
         border: '1px solid rgba(232, 119, 34, 0.3)',
@@ -127,16 +127,23 @@ export default function CountdownTimer() {
       </div>
 
       {/* Digits row */}
-      <div style={{
+      <style>{`
+        @media (max-width: 480px) {
+          .countdown-digit { min-width: 58px !important; padding: 10px 4px !important; }
+          .countdown-colon { font-size: 1.2rem !important; margin-bottom: 16px !important; }
+          .countdown-row { gap: 6px !important; }
+        }
+      `}</style>
+      <div className="countdown-row" style={{
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
         gap: '12px',
-        flexWrap: 'wrap',
+        flexWrap: 'nowrap',
       }}>
         <Digit value={time.days} label="DAYS" />
 
-        <span style={{
+        <span className="countdown-colon" style={{
           fontFamily: 'Orbitron, sans-serif',
           fontSize: 'clamp(1.5rem, 3vw, 2.5rem)',
           color: 'rgba(232,119,34,0.5)',
@@ -146,7 +153,7 @@ export default function CountdownTimer() {
 
         <Digit value={time.hours} label="HOURS" />
 
-        <span style={{
+        <span className="countdown-colon" style={{
           fontFamily: 'Orbitron, sans-serif',
           fontSize: 'clamp(1.5rem, 3vw, 2.5rem)',
           color: 'rgba(232,119,34,0.5)',
@@ -156,7 +163,7 @@ export default function CountdownTimer() {
 
         <Digit value={time.minutes} label="MINUTES" />
 
-        <span style={{
+        <span className="countdown-colon" style={{
           fontFamily: 'Orbitron, sans-serif',
           fontSize: 'clamp(1.5rem, 3vw, 2.5rem)',
           color: 'rgba(232,119,34,0.5)',
