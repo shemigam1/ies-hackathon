@@ -1,6 +1,6 @@
 import OscilloscopeWave from './OscilloscopeWave'
 
-const REGISTER_URL = 'https://forms.gle/4huXnFbS8ZMHSmDx8'
+const REGISTER_URL = 'https://docs.google.com/forms/d/e/1FAIpQLSdBVvgubyecfTGHPOQevsBDJmJflXmt11wPsMyM8gcHY4xIDw/viewform'
 
 export default function RegisterSection() {
   return (
