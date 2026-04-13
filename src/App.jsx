@@ -83,6 +83,22 @@ export default function App() {
         <main style={{ position: "relative", zIndex: 2 }}>
           <HeroSection />
 
+          {/* YouTube Live Stream */}
+          <section style={{ display: 'flex', justifyContent: 'center', padding: '2rem 1rem 4rem' }}>
+            <div style={{ width: '100%', maxWidth: '900px', aspectRatio: '16/9' }}>
+              <iframe
+                width="100%"
+                height="100%"
+                src="https://www.youtube.com/embed/bDu1SZLcs1E"
+                title="YouTube Live Stream"
+                frameBorder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+                style={{ borderRadius: '12px', border: '1px solid rgba(0,255,170,0.2)' }}
+              />
+            </div>
+          </section>
+
           <AboutSection />
           <MissionSection />
           <ArduinoSection />

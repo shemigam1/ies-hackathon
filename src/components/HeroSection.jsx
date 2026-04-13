@@ -223,71 +223,55 @@ export default function HeroSection() {
           What will you create?
         </p>
 
-        {/* CTA Buttons */}
-        <div style={{ display: 'flex', gap: '16px', justifyContent: 'center', flexWrap: 'wrap', marginBottom: '64px' }}>
-          <button
-            onClick={scrollToRegister}
+        {/* Initialized status */}
+        <div style={{ marginTop: '64px', textAlign: 'center' }}>
+          <div style={{
+            fontFamily: 'Share Tech Mono, monospace',
+            fontSize: '0.75rem',
+            letterSpacing: '0.25em',
+            color: 'rgba(0,163,224,0.7)',
+            marginBottom: '16px',
+          }}>
+            {'> STATUS'}
+          </div>
+          <div style={{
+            fontFamily: 'Orbitron, sans-serif',
+            fontSize: 'clamp(2.5rem, 8vw, 4.5rem)',
+            fontWeight: 900,
+            color: '#E87722',
+            letterSpacing: '0.1em',
+            textShadow: '0 0 40px rgba(232,119,34,0.5), 0 0 80px rgba(232,119,34,0.2)',
+          }}>
+            INITIALIZED
+          </div>
+          <div
+            onClick={() => {
+              const ytSection = document.querySelector('iframe[title="YouTube Live Stream"]')
+              ytSection?.scrollIntoView({ behavior: 'smooth', block: 'center' })
+            }}
             style={{
-              fontFamily: 'Orbitron, sans-serif',
-              fontSize: '0.8rem',
-              fontWeight: 700,
-              letterSpacing: '0.15em',
-              color: '#0A0E1A',
-              background: 'linear-gradient(135deg, #E87722, #d4651a)',
-              border: 'none',
-              borderRadius: '4px',
-              padding: '14px 32px',
+              marginTop: '32px',
               cursor: 'pointer',
-              textTransform: 'uppercase',
-              boxShadow: '0 0 30px rgba(232,119,34,0.4)',
-              transition: 'all 0.2s',
-              position: 'relative',
-              overflow: 'hidden',
-            }}
-            onMouseEnter={e => {
-              e.currentTarget.style.boxShadow = '0 0 50px rgba(232,119,34,0.7)'
-              e.currentTarget.style.transform = 'translateY(-2px)'
-            }}
-            onMouseLeave={e => {
-              e.currentTarget.style.boxShadow = '0 0 30px rgba(232,119,34,0.4)'
-              e.currentTarget.style.transform = 'translateY(0)'
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              gap: '4px',
+              animation: 'watchBounce 2s ease-in-out infinite',
             }}
           >
-            Register Now
-          </button>
-          <button
-            onClick={scrollToAbout}
-            style={{
-              fontFamily: 'Orbitron, sans-serif',
-              fontSize: '0.8rem',
-              fontWeight: 700,
-              letterSpacing: '0.15em',
-              color: 'rgba(255,255,255,0.8)',
-              background: 'transparent',
-              border: '1px solid rgba(0,163,224,0.4)',
-              borderRadius: '4px',
-              padding: '14px 32px',
-              cursor: 'pointer',
+            <style>{`@keyframes watchBounce { 0%,100%{transform:translateY(0)} 50%{transform:translateY(8px)} }`}</style>
+            <span style={{
+              fontFamily: 'Share Tech Mono, monospace',
+              fontSize: '0.7rem',
+              letterSpacing: '0.2em',
+              color: 'rgba(0,163,224,0.7)',
               textTransform: 'uppercase',
-              transition: 'all 0.2s',
-            }}
-            onMouseEnter={e => {
-              e.currentTarget.style.borderColor = 'rgba(0,163,224,0.8)'
-              e.currentTarget.style.color = '#00A3E0'
-              e.currentTarget.style.boxShadow = '0 0 20px rgba(0,163,224,0.2)'
-            }}
-            onMouseLeave={e => {
-              e.currentTarget.style.borderColor = 'rgba(0,163,224,0.4)'
-              e.currentTarget.style.color = 'rgba(255,255,255,0.8)'
-              e.currentTarget.style.boxShadow = 'none'
-            }}
-          >
-            Learn More
-          </button>
+            }}>
+              Watch Live
+            </span>
+            <span style={{ color: '#E87722', fontSize: '1.2rem' }}>↓</span>
+          </div>
         </div>
-
-        {/* Countdown */}
-        <CountdownTimer />
       </div>
 
       {/* Bottom oscilloscope wave */}
